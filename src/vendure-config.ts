@@ -1,10 +1,13 @@
 import {
-    dummyPaymentHandler,
     DefaultJobQueuePlugin,
     DefaultSchedulerPlugin,
     DefaultSearchPlugin,
     VendureConfig,
 } from '@vendure/core';
+import {
+    stripePaymentMethodHandler,
+    StripePlugin,
+} from '@vendure/stripe-plugin';
 import { defaultEmailHandlers, EmailPlugin, FileBasedTemplateLoader } from '@vendure/email-plugin';
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
@@ -50,7 +53,7 @@ export const config: VendureConfig = {
         database: path.join(__dirname, '../vendure.sqlite'),
     },
     paymentOptions: {
-        paymentMethodHandlers: [dummyPaymentHandler],
+        paymentMethodHandlers: [stripePaymentMethodHandler],
     },
     // When adding or altering custom field definitions, the database will
     // need to be updated. See the "Migrations" section in README.md.
@@ -89,6 +92,10 @@ export const config: VendureConfig = {
             adminUiConfig: {
                 apiPort: serverPort,
             },
+        }),
+        StripePlugin.init({
+            apiKey: process.env.STRIPE_API_KEY!,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
         }),
     ],
 };

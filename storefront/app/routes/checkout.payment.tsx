@@ -2,17 +2,14 @@ import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import {
   addPaymentToOrder,
   createStripePaymentIntent,
-  generateBraintreeClientToken,
   getEligiblePaymentMethods,
   getNextOrderStates,
   transitionOrderToState,
 } from '~/providers/checkout/checkout';
 import { useLoaderData, useOutletContext } from '@remix-run/react';
 import { OutletContext } from '~/types';
-import { CurrencyCode, ErrorCode, ErrorResult } from '~/generated/graphql';
+import { ErrorCode, ErrorResult } from '~/generated/graphql';
 import { StripePayments } from '~/components/checkout/stripe/StripePayments';
-import { DummyPayments } from '~/components/checkout/DummyPayments';
-import { BraintreeDropIn } from '~/components/checkout/braintree/BraintreePayments';
 import { getActiveOrder } from '~/providers/orders/order';
 import { getSessionStorage } from '~/sessions';
 import { useTranslation } from 'react-i18next';
@@ -53,28 +50,10 @@ export async function loader({ params, request }: DataFunctionArgs) {
     }
   }
 
-  let brainTreeKey: string | undefined;
-  let brainTreeError: string | undefined;
-  if (
-    eligiblePaymentMethods.find((method) => method.code.includes('braintree'))
-  ) {
-    try {
-      const generateBrainTreeTokenResult = await generateBraintreeClientToken({
-        request,
-      });
-      brainTreeKey =
-        generateBrainTreeTokenResult.generateBraintreeClientToken ?? '';
-    } catch (e: any) {
-      brainTreeError = e.message;
-    }
-  }
   return json({
-    eligiblePaymentMethods,
     stripePaymentIntent,
     stripePublishableKey,
     stripeError,
-    brainTreeKey,
-    brainTreeError,
     error,
   });
 }
@@ -118,15 +97,8 @@ export async function action({ params, request }: DataFunctionArgs) {
 }
 
 export default function CheckoutPayment() {
-  const {
-    eligiblePaymentMethods,
-    stripePaymentIntent,
-    stripePublishableKey,
-    stripeError,
-    brainTreeKey,
-    brainTreeError,
-    error,
-  } = useLoaderData<typeof loader>();
+  const { stripePaymentIntent, stripePublishableKey, stripeError, error } =
+    useLoaderData<typeof loader>();
   const { activeOrderFetcher, activeOrder } = useOutletContext<OutletContext>();
   const { t } = useTranslation();
 
@@ -134,52 +106,23 @@ export default function CheckoutPayment() {
 
   return (
     <div className="flex flex-col items-center divide-gray-200 divide-y">
-      {eligiblePaymentMethods.map((paymentMethod) =>
-        paymentMethod.code.includes('braintree') ? (
-          <div className="py-3 w-full" key={paymentMethod.id}>
-            {brainTreeError ? (
-              <div>
-                <p className="text-red-700 font-bold">
-                  {t('checkout.braintreeError')}
-                </p>
-                <p className="text-sm">{brainTreeError}</p>
-              </div>
-            ) : (
-              <BraintreeDropIn
-                fullAmount={activeOrder?.totalWithTax ?? 0}
-                currencyCode={
-                  activeOrder?.currencyCode ?? ('USD' as CurrencyCode)
-                }
-                show={true}
-                authorization={brainTreeKey!}
-              />
-            )}
-          </div>
-        ) : paymentMethod.code.includes('stripe') ? (
-          <div className="py-12" key={paymentMethod.id}>
-            {stripeError ? (
-              <div>
-                <p className="text-red-700 font-bold">
-                  {t('checkout.stripeError')}
-                </p>
-                <p className="text-sm">{stripeError}</p>
-              </div>
-            ) : (
-              <StripePayments
-                orderCode={activeOrder?.code ?? ''}
-                clientSecret={stripePaymentIntent!}
-                publishableKey={stripePublishableKey!}
-              ></StripePayments>
-            )}
-          </div>
-        ) : (
-          <div className="py-12" key={paymentMethod.id}>
-            <DummyPayments
-              paymentMethod={paymentMethod}
-              paymentError={paymentError}
-            />
-          </div>
-        ),
+      {stripePaymentIntent && (
+        <div className="py-12">
+          {stripeError ? (
+            <div>
+              <p className="text-red-700 font-bold">
+                {t('checkout.stripeError')}
+              </p>
+              <p className="text-sm">{stripeError}</p>
+            </div>
+          ) : (
+            <StripePayments
+              orderCode={activeOrder?.code ?? ''}
+              clientSecret={stripePaymentIntent}
+              publishableKey={stripePublishableKey!}
+            ></StripePayments>
+          )}
+        </div>
       )}
     </div>
   );
