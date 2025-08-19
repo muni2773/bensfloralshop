@@ -30,7 +30,8 @@
     "home": "Lar",
     "logoAlt": "Logotipo da venda",
     "search": "Procurar",
-    "goHome": "Ir para casa"
+    "goHome": "Ir para casa",
+    "pickupNotice": "Retirada somente em Vancouver, sem envio, retire em até 48 h"
   },
   "address": {
     "new": "Novo endereço",

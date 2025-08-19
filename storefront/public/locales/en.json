@@ -30,7 +30,8 @@
     "home": "Home",
     "logoAlt": "Vendure logo",
     "search": "Search",
-    "goHome": "Go home"
+    "goHome": "Go home",
+    "pickupNotice": "Vancouver pickup only, no shipping, collect within 48 hrs"
   },
   "address": {
     "new": "New address",

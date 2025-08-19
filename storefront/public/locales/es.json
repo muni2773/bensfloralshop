@@ -30,7 +30,8 @@
     "home": "Hogar",
     "logoAlt": "logotipo de empresa",
     "search": "Buscar",
-    "goHome": "Vete a casa"
+    "goHome": "Vete a casa",
+    "pickupNotice": "Solo recogida en Vancouver, sin envíos, recoja dentro de 48 h"
   },
   "address": {
     "new": "Nueva direccion",
