@@ -15,7 +15,7 @@
     "@vendure/admin-ui-plugin": "3.4.0",
     "@vendure/asset-server-plugin": "3.4.0",
     "@vendure/core": "3.4.0",
-    "@vendure/email-plugin": "3.4.0",
+    "@vendure/email-plugin": "^2.0.10",
     "@vendure/graphiql-plugin": "3.4.0",
     "better-sqlite3": "12.2.0",
     "dotenv": "17.2.1"

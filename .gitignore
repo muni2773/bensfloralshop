@@ -1,5 +1,27 @@
-node_modules
-dist
-admin-ui
-static/assets
-static/email/test-emails
+# deps & builds
+node_modules/
+dist/
+build/
+.cache/
+.next/
+out/
+coverage/
+
+# env & local
+.env
+.env.*
+*.local
+*.log
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# DB & artifacts
+*.sqlite
+vendure.sqlite
