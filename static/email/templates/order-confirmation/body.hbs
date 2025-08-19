@@ -69,19 +69,13 @@
 <mj-section css-class="bg-off-white">
     <mj-column>
         <mj-text>
-            {{#with order.shippingAddress }}
-                <h3>Shipping To: {{ fullName }}</h3>
-                <ul class="address">
-                    {{#if company}}<li>{{ company }}</li>{{/if}}
-                    {{#if streetLine1}}<li>{{ streetLine1 }}</li>{{/if}}
-                    {{#if streetLine2}}<li>{{ streetLine2 }}</li>{{/if}}
-                    {{#if city}}<li>{{ city }}</li>{{/if}}
-                    {{#if province}}<li>{{ province }}</li>{{/if}}
-                    {{#if postalCode}}<li>{{ postalCode }}</li>{{/if}}
-                    {{#if country}}<li>{{ country }}</li>{{/if}}
-                    {{#if phoneNumber}}<li>{{ phoneNumber }}</li>{{/if}}
-                </ul>
-            {{/with}}
+            <h3>Pickup Location:</h3>
+            <ul class="address">
+                <li>123 Flower Street</li>
+                <li>Springfield, IL 62704</li>
+            </ul>
+            <p>Pickup Hours: 9am–5pm Mon–Sat</p>
+            <p>Please collect your order within 48 hours. No refunds after this period.</p>
         </mj-text>
     </mj-column>
 </mj-section>
@@ -116,12 +110,6 @@
                 <td colspan="3">Sub-total:</td>
                 <td>{{ formatMoney order.subTotalWithTax order.currencyCode 'en' }}</td>
             </tr>
-            {{#each shippingLines }}
-            <tr class="order-row">
-                <td colspan="3">Shipping ({{ shippingMethod.name }}):</td>
-                <td>{{ formatMoney priceWithTax ../order.currencyCode 'en' }}</td>
-            </tr>
-            {{/each}}
             <tr class="order-row total-row">
                 <td colspan="3">Total:</td>
                 <td>{{ formatMoney order.totalWithTax order.currencyCode 'en' }}</td>

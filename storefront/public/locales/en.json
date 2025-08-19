@@ -102,7 +102,7 @@
   "cart": {
     "title": "Shopping cart",
     "empty": "Your cart is empty",
-    "shippingMessage": "Shipping will be calculated at checkout.",
+    "shippingMessage": "Please collect your order within 48 hours. No refunds after this period.",
     "checkout": "Checkout"
   },
   "checkout": {
@@ -138,7 +138,7 @@
     "actions": "Actions",
     "actionsMessage": "Actions for this order (Not implemented)",
     "expand": "Expand this order",
-    "notShipped": "Not shipped yet",
+    "notShipped": "Awaiting pickup",
     "trackAlert": "Here you'd need to Link your delivery service. Tracking code for this package is",
     "trackPackage": "Track package",
     "detailedOverview": "Detailed overview",
