@@ -123,10 +123,12 @@
     "braintreeError": "Braintree error:",
     "stripeError": "Stripe error:",
     "detailsTitle": "Contact information",
-    "shippingTitle": "Shipping information",
+    "pickupTitle": "Pickup information",
+    "pickupInstructions": "Collect your order at our store during business hours.",
+    "storeAddress": "123 Flower Street, Springfield",
     "goToPayment": "Proceed to payment",
     "steps": {
-      "shipping": "Shipping",
+      "pickup": "Pickup",
       "payment": "Payment",
       "confirmation": "Confirmation"
     }

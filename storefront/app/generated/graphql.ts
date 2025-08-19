@@ -4626,23 +4626,6 @@ export type OrderDetailFragment = {
     lastName: string;
     emailAddress: string;
   } | null;
-  shippingAddress?: {
-    __typename?: 'OrderAddress';
-    fullName?: string | null;
-    streetLine1?: string | null;
-    streetLine2?: string | null;
-    company?: string | null;
-    city?: string | null;
-    province?: string | null;
-    postalCode?: string | null;
-    countryCode?: string | null;
-    phoneNumber?: string | null;
-  } | null;
-  shippingLines: Array<{
-    __typename?: 'ShippingLine';
-    priceWithTax: number;
-    shippingMethod: { __typename?: 'ShippingMethod'; id: string; name: string };
-  }>;
   lines: Array<{
     __typename?: 'OrderLine';
     id: string;
@@ -5031,24 +5014,6 @@ export const OrderDetailFragmentDoc = gql`
       firstName
       lastName
       emailAddress
-    }
-    shippingAddress {
-      fullName
-      streetLine1
-      streetLine2
-      company
-      city
-      province
-      postalCode
-      countryCode
-      phoneNumber
-    }
-    shippingLines {
-      shippingMethod {
-        id
-        name
-      }
-      priceWithTax
     }
     lines {
       id

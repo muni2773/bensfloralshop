@@ -6,7 +6,7 @@ import { classNames } from '~/utils/class-names';
 import { CartTotals } from '~/components/cart/CartTotals';
 import { useTranslation } from 'react-i18next';
 
-const steps = ['shipping', 'payment', 'confirmation'];
+const steps = ['pickup', 'payment', 'confirmation'];
 
 export default function Checkout() {
   const outletContext = useOutletContext<OutletContext>();
@@ -14,7 +14,7 @@ export default function Checkout() {
   const location = useLocation();
   const { t } = useTranslation();
 
-  let state = 'shipping';
+  let state = 'pickup';
   if (location.pathname === '/checkout/payment') {
     state = 'payment';
   } else if (location.pathname.startsWith('/checkout/confirmation')) {
@@ -71,7 +71,7 @@ export default function Checkout() {
               <CartContents
                 orderLines={activeOrder?.lines ?? []}
                 currencyCode={activeOrder?.currencyCode!}
-                editable={state === 'shipping'}
+                editable={state === 'pickup'}
                 removeItem={removeItem}
                 adjustOrderLine={adjustOrderLine}
               ></CartContents>

@@ -4,19 +4,15 @@ import {
   getActiveOrder,
   removeOrderLine,
   setCustomerForOrder,
-  setOrderShippingAddress,
-  setOrderShippingMethod,
 } from '~/providers/orders/order';
 import { DataFunctionArgs, json } from '@remix-run/server-runtime';
 import {
-  CreateAddressInput,
   CreateCustomerInput,
   ErrorCode,
   ErrorResult,
   OrderDetailFragment,
 } from '~/generated/graphql';
 import { getSessionStorage } from '~/sessions';
-import { shippingFormDataIsValid } from '~/utils/validation';
 
 export type CartLoaderData = Awaited<ReturnType<typeof loader>>;
 
@@ -35,33 +31,6 @@ export async function action({ request, params }: DataFunctionArgs) {
     message: '',
   };
   switch (formAction) {
-    case 'setCheckoutShipping':
-      if (shippingFormDataIsValid(body)) {
-        const shippingFormData = Object.fromEntries<any>(
-          body.entries(),
-        ) as CreateAddressInput;
-        const result = await setOrderShippingAddress(
-          {
-            city: shippingFormData.city,
-            company: shippingFormData.company,
-            countryCode: shippingFormData.countryCode,
-            customFields: shippingFormData.customFields,
-            fullName: shippingFormData.fullName,
-            phoneNumber: shippingFormData.phoneNumber,
-            postalCode: shippingFormData.postalCode,
-            province: shippingFormData.province,
-            streetLine1: shippingFormData.streetLine1,
-            streetLine2: shippingFormData.streetLine2,
-          },
-          { request },
-        );
-        if (result.setOrderShippingAddress.__typename === 'Order') {
-          activeOrder = result.setOrderShippingAddress;
-        } else {
-          error = result.setOrderShippingAddress;
-        }
-      }
-      break;
     case 'setOrderCustomer': {
       const customerData = Object.fromEntries<any>(
         body.entries(),
@@ -78,20 +47,6 @@ export async function action({ request, params }: DataFunctionArgs) {
         activeOrder = result.setCustomerForOrder;
       } else {
         error = result.setCustomerForOrder;
-      }
-      break;
-    }
-    case 'setShippingMethod': {
-      const shippingMethodId = body.get('shippingMethodId');
-      if (typeof shippingMethodId === 'string') {
-        const result = await setOrderShippingMethod(shippingMethodId, {
-          request,
-        });
-        if (result.setOrderShippingMethod.__typename === 'Order') {
-          activeOrder = result.setOrderShippingMethod;
-        } else {
-          error = result.setOrderShippingMethod;
-        }
       }
       break;
     }
