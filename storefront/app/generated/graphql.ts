@@ -3305,6 +3305,238 @@ export type AdjustOrderLineMutationVariables = Exact<{
   quantity: Scalars['Int'];
 }>;
 
+export type AdjustOrderLineMutation = {
+  __typename?: 'Mutation';
+  adjustOrderLine:
+    | {
+        __typename?: 'InsufficientStockError';
+        errorCode: ErrorCode;
+        message: string;
+      }
+    | {
+        __typename?: 'NegativeQuantityError';
+        errorCode: ErrorCode;
+        message: string;
+      }
+    | {
+        __typename: 'Order';
+        id: string;
+        code: string;
+        active: boolean;
+        createdAt: any;
+        state: string;
+        currencyCode: CurrencyCode;
+        totalQuantity: number;
+        subTotal: number;
+        subTotalWithTax: number;
+        shippingWithTax: number;
+        totalWithTax: number;
+        taxSummary: Array<{
+          __typename?: 'OrderTaxSummary';
+          description: string;
+          taxRate: number;
+          taxTotal: number;
+        }>;
+        customer?: {
+          __typename?: 'Customer';
+          id: string;
+          firstName: string;
+          lastName: string;
+          emailAddress: string;
+        } | null;
+        shippingAddress?: {
+          __typename?: 'OrderAddress';
+          fullName?: string | null;
+          streetLine1?: string | null;
+          streetLine2?: string | null;
+          company?: string | null;
+          city?: string | null;
+          province?: string | null;
+          postalCode?: string | null;
+          countryCode?: string | null;
+          phoneNumber?: string | null;
+        } | null;
+        shippingLines: Array<{
+          __typename?: 'ShippingLine';
+          priceWithTax: number;
+          shippingMethod: {
+            __typename?: 'ShippingMethod';
+            id: string;
+            name: string;
+          };
+        }>;
+        lines: Array<{
+          __typename?: 'OrderLine';
+          id: string;
+          unitPriceWithTax: number;
+          linePriceWithTax: number;
+          quantity: number;
+          featuredAsset?: {
+            __typename?: 'Asset';
+            id: string;
+            preview: string;
+          } | null;
+          productVariant: {
+            __typename?: 'ProductVariant';
+            id: string;
+            name: string;
+            price: number;
+            product: { __typename?: 'Product'; id: string; slug: string };
+          };
+        }>;
+        payments?: Array<{
+          __typename?: 'Payment';
+          id: string;
+          state: string;
+          method: string;
+          amount: number;
+          metadata?: any | null;
+        }> | null;
+      }
+    | { __typename?: 'OrderLimitError'; errorCode: ErrorCode; message: string }
+    | {
+        __typename?: 'OrderModificationError';
+        errorCode: ErrorCode;
+        message: string;
+      };
+};
+
+export type OrderDetailFragment = {
+  __typename: 'Order';
+  id: string;
+  code: string;
+  active: boolean;
+  createdAt: any;
+  state: string;
+  currencyCode: CurrencyCode;
+  totalQuantity: number;
+  subTotal: number;
+  subTotalWithTax: number;
+  shippingWithTax: number;
+  totalWithTax: number;
+  taxSummary: Array<{
+    __typename?: 'OrderTaxSummary';
+    description: string;
+    taxRate: number;
+    taxTotal: number;
+  }>;
+  customer?: {
+    __typename?: 'Customer';
+    id: string;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+  } | null;
+  lines: Array<{
+    __typename?: 'OrderLine';
+    id: string;
+    unitPriceWithTax: number;
+    linePriceWithTax: number;
+    quantity: number;
+    featuredAsset?: {
+      __typename?: 'Asset';
+      id: string;
+      preview: string;
+    } | null;
+    productVariant: {
+      __typename?: 'ProductVariant';
+      id: string;
+      name: string;
+      price: number;
+      product: { __typename?: 'Product'; id: string; slug: string };
+    };
+  }>;
+  payments?: Array<{
+    __typename?: 'Payment';
+    id: string;
+    state: string;
+    method: string;
+    amount: number;
+    metadata?: any | null;
+  }> | null;
+};
+
+export type ActiveOrderQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ActiveOrderQuery = {
+  __typename?: 'Query';
+  activeOrder?: {
+    __typename: 'Order';
+    id: string;
+    code: string;
+    active: boolean;
+    createdAt: any;
+    state: string;
+    currencyCode: CurrencyCode;
+    totalQuantity: number;
+    subTotal: number;
+    subTotalWithTax: number;
+    shippingWithTax: number;
+    totalWithTax: number;
+    taxSummary: Array<{
+      __typename?: 'OrderTaxSummary';
+      description: string;
+      taxRate: number;
+      taxTotal: number;
+    }>;
+    customer?: {
+      __typename?: 'Customer';
+      id: string;
+      firstName: string;
+      lastName: string;
+      emailAddress: string;
+    } | null;
+    shippingAddress?: {
+      __typename?: 'OrderAddress';
+      fullName?: string | null;
+      streetLine1?: string | null;
+      streetLine2?: string | null;
+      company?: string | null;
+      city?: string | null;
+      province?: string | null;
+      postalCode?: string | null;
+      countryCode?: string | null;
+      phoneNumber?: string | null;
+    } | null;
+    shippingLines: Array<{
+      __typename?: 'ShippingLine';
+      priceWithTax: number;
+      shippingMethod: {
+        __typename?: 'ShippingMethod';
+        id: string;
+        name: string;
+      };
+    }>;
+    lines: Array<{
+      __typename?: 'OrderLine';
+      id: string;
+      unitPriceWithTax: number;
+      linePriceWithTax: number;
+      quantity: number;
+      featuredAsset?: {
+        __typename?: 'Asset';
+        id: string;
+        preview: string;
+      } | null;
+      productVariant: {
+        __typename?: 'ProductVariant';
+        id: string;
+        name: string;
+        price: number;
+        product: { __typename?: 'Product'; id: string; slug: string };
+      };
+    }>;
+    payments?: Array<{
+      __typename?: 'Payment';
+      id: string;
+      state: string;
+      method: string;
+      amount: number;
+      metadata?: any | null;
+    }> | null;
+  } | null;
+};
+=======
 
 export type AdjustOrderLineMutation = { __typename?: 'Mutation', adjustOrderLine: { __typename?: 'InsufficientStockError', errorCode: ErrorCode, message: string } | { __typename?: 'NegativeQuantityError', errorCode: ErrorCode, message: string } | { __typename: 'Order', id: string, code: string, active: boolean, createdAt: any, state: string, currencyCode: CurrencyCode, totalQuantity: number, subTotal: number, subTotalWithTax: number, shippingWithTax: number, totalWithTax: number, taxSummary: Array<{ __typename?: 'OrderTaxSummary', description: string, taxRate: number, taxTotal: number }>, customer?: { __typename?: 'Customer', id: string, firstName: string, lastName: string, emailAddress: string } | null, shippingAddress?: { __typename?: 'OrderAddress', fullName?: string | null, streetLine1?: string | null, streetLine2?: string | null, company?: string | null, city?: string | null, province?: string | null, postalCode?: string | null, countryCode?: string | null, phoneNumber?: string | null } | null, shippingLines: Array<{ __typename?: 'ShippingLine', priceWithTax: number, shippingMethod: { __typename?: 'ShippingMethod', id: string, name: string } }>, lines: Array<{ __typename?: 'OrderLine', id: string, unitPriceWithTax: number, linePriceWithTax: number, quantity: number, featuredAsset?: { __typename?: 'Asset', id: string, preview: string } | null, productVariant: { __typename?: 'ProductVariant', id: string, name: string, price: number, product: { __typename?: 'Product', id: string, slug: string } } }>, payments?: Array<{ __typename?: 'Payment', id: string, state: string, method: string, amount: number, metadata?: any | null }> | null } | { __typename?: 'OrderLimitError', errorCode: ErrorCode, message: string } | { __typename?: 'OrderModificationError', errorCode: ErrorCode, message: string } };
 
@@ -3387,6 +3619,11 @@ export const OrderDetailFragmentDoc = gql`
   shippingLines {
     shippingMethod {
       id
+      firstName
+      lastName
+      emailAddress
+    }
+    lines {
       name
     }
     priceWithTax
