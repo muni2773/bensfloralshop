@@ -30,7 +30,8 @@
     "home": "Lar",
     "logoAlt": "Logotipo da venda",
     "search": "Procurar",
-    "goHome": "Ir para casa"
+    "goHome": "Ir para casa",
+    "pickupNotice": "Retirada somente em Vancouver, sem envio, retire em até 48 h"
   },
   "address": {
     "new": "Novo endereço",
@@ -102,7 +103,7 @@
   "cart": {
     "title": "Carrinho de compras",
     "empty": "Seu carrinho está vazio",
-    "shippingMessage": "O frete será calculado na finalização da compra.",
+    "shippingMessage": "Retire seu pedido em até 48 horas. Não há reembolsos após esse período.",
     "checkout": "Confira"
   },
   "checkout": {
@@ -138,7 +139,7 @@
     "actions": "Ações",
     "actionsMessage": "Ações para este pedido (não implementadas)",
     "expand": "Expandir este pedido",
-    "notShipped": "Ainda não foi enviado",
+    "notShipped": "Aguardando retirada",
     "trackAlert": "Aqui você precisa vincular seu serviço de entrega. ",
     "trackPackage": "Rastrear pacote",
     "detailedOverview": "Visão geral detalhada",

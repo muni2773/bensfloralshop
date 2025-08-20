@@ -44,12 +44,11 @@ export async function loader({ params, request }: DataFunctionArgs) {
       });
       stripePaymentIntent =
         stripePaymentIntentResult.createStripePaymentIntent ?? undefined;
-      stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+      stripePublishableKey = process.env.STRIPE_CA_PUBLISHABLE_KEY;
     } catch (e: any) {
       stripeError = e.message;
     }
   }
-
   return json({
     stripePaymentIntent,
     stripePublishableKey,
@@ -61,7 +60,6 @@ export async function loader({ params, request }: DataFunctionArgs) {
 export async function action({ params, request }: DataFunctionArgs) {
   const body = await request.formData();
   const paymentMethodCode = body.get('paymentMethodCode');
-  const paymentNonce = body.get('paymentNonce');
   if (typeof paymentMethodCode === 'string') {
     const { nextOrderStates } = await getNextOrderStates({
       request,
@@ -80,7 +78,7 @@ export async function action({ params, request }: DataFunctionArgs) {
     }
 
     const result = await addPaymentToOrder(
-      { method: paymentMethodCode, metadata: { nonce: paymentNonce } },
+      { method: paymentMethodCode },
       { request },
     );
     if (result.addPaymentToOrder.__typename === 'Order') {
@@ -99,6 +97,13 @@ export async function action({ params, request }: DataFunctionArgs) {
 export default function CheckoutPayment() {
   const { stripePaymentIntent, stripePublishableKey, stripeError, error } =
     useLoaderData<typeof loader>();
+  const {
+    eligiblePaymentMethods,
+    stripePaymentIntent,
+    stripePublishableKey,
+    stripeError,
+    error,
+  } = useLoaderData<typeof loader>();
   const { activeOrderFetcher, activeOrder } = useOutletContext<OutletContext>();
   const { t } = useTranslation();
 
@@ -124,6 +129,26 @@ export default function CheckoutPayment() {
           )}
         </div>
       )}
+      {eligiblePaymentMethods
+        .filter((paymentMethod) => paymentMethod.code.includes('stripe'))
+        .map((paymentMethod) => (
+          <div className="py-12" key={paymentMethod.id}>
+            {stripeError ? (
+              <div>
+                <p className="text-red-700 font-bold">
+                  {t('checkout.stripeError')}
+                </p>
+                <p className="text-sm">{stripeError}</p>
+              </div>
+            ) : (
+              <StripePayments
+                orderCode={activeOrder?.code ?? ''}
+                clientSecret={stripePaymentIntent!}
+                publishableKey={stripePublishableKey!}
+              ></StripePayments>
+            )}
+          </div>
+        ))}
     </div>
   );
 }

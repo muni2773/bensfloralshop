@@ -30,7 +30,8 @@
     "home": "Home",
     "logoAlt": "Vendure logo",
     "search": "Search",
-    "goHome": "Go home"
+    "goHome": "Go home",
+    "pickupNotice": "Vancouver pickup only, no shipping, collect within 48 hrs"
   },
   "address": {
     "new": "New address",
@@ -102,7 +103,7 @@
   "cart": {
     "title": "Shopping cart",
     "empty": "Your cart is empty",
-    "shippingMessage": "Shipping will be calculated at checkout.",
+    "shippingMessage": "Please collect your order within 48 hours. No refunds after this period.",
     "checkout": "Checkout"
   },
   "checkout": {
@@ -123,10 +124,12 @@
     "braintreeError": "Braintree error:",
     "stripeError": "Stripe error:",
     "detailsTitle": "Contact information",
-    "shippingTitle": "Shipping information",
+    "pickupTitle": "Pickup information",
+    "pickupInstructions": "Collect your order at our store during business hours.",
+    "storeAddress": "123 Flower Street, Springfield",
     "goToPayment": "Proceed to payment",
     "steps": {
-      "shipping": "Shipping",
+      "pickup": "Pickup",
       "payment": "Payment",
       "confirmation": "Confirmation"
     }
@@ -138,7 +141,7 @@
     "actions": "Actions",
     "actionsMessage": "Actions for this order (Not implemented)",
     "expand": "Expand this order",
-    "notShipped": "Not shipped yet",
+    "notShipped": "Awaiting pickup",
     "trackAlert": "Here you'd need to Link your delivery service. Tracking code for this package is",
     "trackPackage": "Track package",
     "detailedOverview": "Detailed overview",

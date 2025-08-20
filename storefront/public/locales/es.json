@@ -30,7 +30,8 @@
     "home": "Hogar",
     "logoAlt": "logotipo de empresa",
     "search": "Buscar",
-    "goHome": "Vete a casa"
+    "goHome": "Vete a casa",
+    "pickupNotice": "Solo recogida en Vancouver, sin envíos, recoja dentro de 48 h"
   },
   "address": {
     "new": "Nueva direccion",
@@ -102,7 +103,7 @@
   "cart": {
     "title": "Carro de la compra",
     "empty": "Tu carrito esta vacío",
-    "shippingMessage": "El envío se calculará al finalizar la compra.",
+    "shippingMessage": "Recoge tu pedido en un plazo de 48 horas. No hay reembolsos después de ese período.",
     "checkout": "Verificar"
   },
   "checkout": {
@@ -138,7 +139,7 @@
     "actions": "Comportamiento",
     "actionsMessage": "Acciones para esta orden (No implementada)",
     "expand": "Ampliar este pedido",
-    "notShipped": "No enviado aún",
+    "notShipped": "Pendiente de recoger",
     "trackAlert": "Aquí deberá vincular su servicio de entrega. ",
     "trackPackage": "Paquete de seguimiento",
     "detailedOverview": "Descripción detallada",

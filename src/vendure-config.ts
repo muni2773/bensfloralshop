@@ -8,12 +8,15 @@ import {
     stripePaymentMethodHandler,
     StripePlugin,
 } from '@vendure/stripe-plugin';
+import { StripePlugin, stripePaymentMethodHandler } from '@vendure/payments-plugin';
 import { defaultEmailHandlers, EmailPlugin, FileBasedTemplateLoader } from '@vendure/email-plugin';
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import { GraphiqlPlugin } from '@vendure/graphiql-plugin';
+import { PickupNotificationPlugin } from './plugins/pickup-notification';
 import 'dotenv/config';
 import path from 'path';
+import { OrderExpirationPlugin } from './order-expiration.plugin';
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
@@ -71,6 +74,10 @@ export const config: VendureConfig = {
         DefaultSchedulerPlugin.init(),
         DefaultJobQueuePlugin.init({ useDatabaseForBuffer: true }),
         DefaultSearchPlugin.init({ bufferUpdates: false, indexStockStatus: true }),
+        StripePlugin.init({
+            apiKey: process.env.STRIPE_CA_SECRET_KEY!,
+            webhookSecret: process.env.STRIPE_CA_WEBHOOK_SECRET!,
+        }),
         EmailPlugin.init({
             devMode: true,
             outputPath: path.join(__dirname, '../static/email/test-emails'),
@@ -86,6 +93,7 @@ export const config: VendureConfig = {
                 changeEmailAddressUrl: 'http://localhost:8080/verify-email-address-change'
             },
         }),
+        PickupNotificationPlugin,
         AdminUiPlugin.init({
             route: 'admin',
             port: serverPort + 2,
@@ -93,9 +101,11 @@ export const config: VendureConfig = {
                 apiPort: serverPort,
             },
         }),
+
         StripePlugin.init({
             apiKey: process.env.STRIPE_API_KEY!,
             webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
         }),
+        OrderExpirationPlugin,
     ],
 };
