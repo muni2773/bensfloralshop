@@ -50,7 +50,6 @@ export async function loader({ params, request }: DataFunctionArgs) {
     }
   }
   return json({
-    eligiblePaymentMethods,
     stripePaymentIntent,
     stripePublishableKey,
     stripeError,
@@ -96,6 +95,8 @@ export async function action({ params, request }: DataFunctionArgs) {
 }
 
 export default function CheckoutPayment() {
+  const { stripePaymentIntent, stripePublishableKey, stripeError, error } =
+    useLoaderData<typeof loader>();
   const {
     eligiblePaymentMethods,
     stripePaymentIntent,
@@ -110,6 +111,24 @@ export default function CheckoutPayment() {
 
   return (
     <div className="flex flex-col items-center divide-gray-200 divide-y">
+      {stripePaymentIntent && (
+        <div className="py-12">
+          {stripeError ? (
+            <div>
+              <p className="text-red-700 font-bold">
+                {t('checkout.stripeError')}
+              </p>
+              <p className="text-sm">{stripeError}</p>
+            </div>
+          ) : (
+            <StripePayments
+              orderCode={activeOrder?.code ?? ''}
+              clientSecret={stripePaymentIntent}
+              publishableKey={stripePublishableKey!}
+            ></StripePayments>
+          )}
+        </div>
+      )}
       {eligiblePaymentMethods
         .filter((paymentMethod) => paymentMethod.code.includes('stripe'))
         .map((paymentMethod) => (
