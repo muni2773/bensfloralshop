@@ -9,6 +9,7 @@ import { defaultEmailHandlers, EmailPlugin, FileBasedTemplateLoader } from '@ven
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import { GraphiqlPlugin } from '@vendure/graphiql-plugin';
+import { PickupNotificationPlugin } from './plugins/pickup-notification';
 import 'dotenv/config';
 import path from 'path';
 
@@ -87,6 +88,7 @@ export const config: VendureConfig = {
                 changeEmailAddressUrl: 'http://localhost:8080/verify-email-address-change'
             },
         }),
+        PickupNotificationPlugin,
         AdminUiPlugin.init({
             route: 'admin',
             port: serverPort + 2,
