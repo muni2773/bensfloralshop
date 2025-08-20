@@ -102,7 +102,7 @@
   "cart": {
     "title": "Carrinho de compras",
     "empty": "Seu carrinho está vazio",
-    "shippingMessage": "O frete será calculado na finalização da compra.",
+    "shippingMessage": "Levante a sua encomenda em 48 horas. Sem reembolsos após esse período.",
     "checkout": "Confira"
   },
   "checkout": {
@@ -138,7 +138,7 @@
     "actions": "Ações",
     "actionsMessage": "Ações para este pedido (não implementadas)",
     "expand": "Expandir este pedido",
-    "notShipped": "Ainda não foi enviado",
+    "notShipped": "Aguardando levantamento",
     "trackAlert": "Aqui você precisa vincular seu serviço de entrega. ",
     "trackPackage": "Rastrear pacote",
     "detailedOverview": "Visão geral detalhada",
