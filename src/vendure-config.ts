@@ -12,6 +12,7 @@ import { GraphiqlPlugin } from '@vendure/graphiql-plugin';
 import { PickupNotificationPlugin } from './plugins/pickup-notification';
 import 'dotenv/config';
 import path from 'path';
+import { OrderExpirationPlugin } from './order-expiration.plugin';
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
@@ -96,5 +97,6 @@ export const config: VendureConfig = {
                 apiPort: serverPort,
             },
         }),
+        OrderExpirationPlugin,
     ],
 };
