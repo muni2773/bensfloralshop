@@ -96,7 +96,7 @@ export default function App() {
   const loaderData = useLoaderData<RootLoaderData>();
   const { collections } = loaderData;
   const { locale } = useLoaderData<typeof loader>();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const {
     activeOrderFetcher,
     activeOrder,
@@ -128,6 +128,9 @@ export default function App() {
           cartQuantity={activeOrder?.totalQuantity ?? 0}
         />
         <main className="">
+          <div className="bg-yellow-50 text-center text-sm py-2">
+            {t('common.pickupNotice')}
+          </div>
           <Outlet
             context={{
               activeOrderFetcher,
